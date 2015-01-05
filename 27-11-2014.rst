@@ -1,0 +1,13 @@
+================
+Thu, 27 Nov 2014
+================
+
+- Returned from the UK on Tuesday (I had a good time being social and also I
+  talked to my academic tutor about some computational linguistics projects).
+
+- I've been having some trouble with the CDS test elasticsearch cluster -- some
+  of the smaller machines keep running out of memory and the problem is quite
+  hard to track down.
+
+  - Hopefully it's now more-or-less fixed with some config changes, but we'll
+    see if the cluster stays stable over the next few days.

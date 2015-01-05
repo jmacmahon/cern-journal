@@ -1,0 +1,36 @@
+================
+Thu, 02 Oct 2014
+================
+
+- Elasticsearch Python logging library
+
+  - Friday–Tuesday was spent trying to hack async into the standard Python
+    Elasticsearch library.
+
+    - Benchmarking gave speeds of ~1000 requests/second.
+
+    - Broke a lot of functionality as parts of the library expect results,
+      status codes etc. to be returned directly.
+
+  - New approach: keep logs in a queue; this is flushed synchronously to ES
+    every n seconds or every m events, but in a separate thread.
+
+- Concerns about Python GIL but after some playing it turns out OK.
+
+    - Currently writing up documentation and expanding test coverage.
+
+    - Benchmarking gave speeds of ~2000 requests/second.
+
+    - Working much better.
+
+  - Note on the benchmarking results: using March 2013 as an example month, the
+    highest number of requests/second on CDS was ~400.  The 99.99th %-ile was
+    99 requests/second.)
+
+- Filed a feature request for Elasticsearch itself; they agreed it would be
+  nice to have but closed the bug as a duplicate. (elasticsearch/elasticsearch
+  #7703)
+
+- Starting French course on Monday!
+
+- Makis is slowly teaching me Greek too.

@@ -1,0 +1,32 @@
+================
+Thu, 13 Nov 2014
+================
+
+First update in a while!
+
+Previous weeks
+--------------
+
+- Finished work on "Lumberjack" -- Python library for async logging to
+  Elasticsearch.
+
+  - Still not finalised the name.
+
+- Added a patch for master to support logging of downloads and pageviews to
+  Elasticsearch, via Lumberjack.  This can go on CDS when our cluster is ready.
+
+- Working on pu, adding code to log custom events using Lumberjack in a
+  generalised way.
+
+  - Adding a REST API to get data for views in statistics module.
+
+This week
+---------
+
+- We finally have some machines for our cluster! (Yay)
+
+- Nikos has written some puppet files, and I've been going over the machines
+  making sure they're set up as expected.
+
+- Doing some more benchmarking to establish query times under different
+  configurations.
