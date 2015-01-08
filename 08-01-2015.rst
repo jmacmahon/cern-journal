@@ -1,0 +1,33 @@
+================
+Thu, 08 Jan 2015
+================
+
+Bonne année tout le monde !
+
+CDS
+---
+
+- Over new year we had a crash on CDS -- 503 service unavailable for about a
+  full day.
+
+- Initial cause was an inconsistency in Elasticsearch (caused by Lumberjack)
+
+  - Then various error conditions applied and caused a secondary crash in
+    Lumberjack
+
+- Fortunately, Nikos worked on it remotely for some hours and managed to bring
+  the service back online.
+
+Lumberjack
+----------
+
+- Patched bad error handling which caused the secondary crash.
+
+- Still working on patching the bad template code -- so far I've been unable to
+  reproduce the inconsistency, so it's difficult.
+
+  - This is not urgent, since this particular crash will not happen again until
+    01/01/2016.
+
+  - It is nevertheless high-priority as it can affect all newly-created log
+    events from Invenio.
