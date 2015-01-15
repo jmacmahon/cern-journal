@@ -1,0 +1,19 @@
+================
+Thu, 15 Jan 2015
+================
+
+Lumberjack
+----------
+
+- I did a *lot* of debugging trying to figure out the source of the template
+  inconsistency in Elasticsearch.
+
+  - (I ended up having to run tcpdump on all the Elasticsearch nodes to inspect
+    the HTTP streams by hand.)
+
+- Rewrote the template management functionality to be more
+  sensible.
+
+- Made the fallback mode (write JSON strings to a file) more robust.
+
+- Simplified parts of the test suite.
