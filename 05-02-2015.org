@@ -1,0 +1,38 @@
+* Thu, 05 Feb 2015
+
+** FOSDEM
+
+- I didn't manage to get to the Elasticsearch talk that I was intending to go
+  to, because I think there was a clash and I wanted to see something else.
+
+- However, I did go and chat to the guy on the Elasticsearch stand and got some
+  insight into their security model.
+
+- In general, I went to some cool talks about Rust, recommendation engines with
+  Neo4j, and NixOS, did lots of networking and some tourism.
+
+** Elasticsearch
+
+*** Nginx configurations
+
+- At the moment, traffic from the worker nodes is going across the network to
+  the cluster unencrypted, so:
+
+  - The plan is to use an Nginx front-end on the Elasticsearch nodes, with SSL
+    and client-side certificates for authentication.
+
+- For security and access to the cluster by users, we can limit public requests
+  to GET only.
+
+  - Would be good to include CERN single sign on rather than HTTP basic auth,
+    but this looks like it will take some work with Nginx.
+
+- Nginx is really great -- lightweight and easy to configure.  I love it!
+
+** Lumberjack
+
+- A minor bug was reported by Jean-Yves and Esteban regarding bibsched.  It
+  causes an exception to be raised just before bibsched terminates, resulting
+  in some ugly text on the terminal.
+
+  - Currently I'm trying to reproduce it outside of an Invenio context.
