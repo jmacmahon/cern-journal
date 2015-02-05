@@ -1,0 +1,28 @@
+* Thu, 29 Jan 2015
+
+** Invenio
+
+- Implemented logging of downloads and pageviews events in pu.
+
+** CDS
+
+- Lumberjack back on production, after some code reviewing from Nikos.
+
+- If it crashes again I will buy everyone in the office a beer.
+
+- Trying to index remaining chunk of historical downloads and pageviews, but
+  I've been having issues with MySQL all week.  It's finally working and
+  uploading the remaining pageviews now.
+
+ - After this we need to index the events from when we fell back to MySQL
+   logging last week.
+
+** General
+
+- Participated in the second CERN Whitehat Challenge training, practising SQL
+  injection etc.
+
+- FOSDEM this weekend!  Among other things they have some talks on
+  Elasticsearch internals and the ELK stack so I hope to come back with some
+  more knowledge.
+
