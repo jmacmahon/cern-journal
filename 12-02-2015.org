@@ -1,0 +1,29 @@
+* Thu, 12 Feb 2015
+
+** Nginx/Elasticsearch security
+
+- Finalised configuration for "client" and "server" Nginx front-ends.
+
+  - I had some difficulty setting up client-side SSL certificates, but that's
+    now resolved.
+
+- Musings with Nikos re: SSL configuration, Nginx versions, Puppet.
+
+- Benchmarking the new configuration to assess impact of encryption on indexing
+  log data.
+
+- I've also been researching alternatives to the Nginx front-end solution.
+
+  - There's a not-yet-released project called Elasticsearch Defender which
+    looks very promising.
+
+  - Taking part in a discussion re: Shield/Defender on the ES GitHub page.
+
+** Lumberjack
+
+- I've tracked down the cause of the bibsched bug, but it looks like there's
+  something strange happening in the threading library.
+
+  - More investigation needed, but I'm beginning to suspect it's a bug in
+    Python threading.
+
