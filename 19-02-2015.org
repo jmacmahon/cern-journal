@@ -1,0 +1,30 @@
+* Thu, 19 Feb 2015
+
+** Lumberjack
+
+- Tracked down the cause of the bibsched traceback and patched in a workaround.
+
+  - Caused by a bug in Python threading library
+    (http://bugs.python.org/issue14623), but this is a "won't fix" in Python 2.
+
+  - As suspected, it is completely harmless and is a result of some
+    inconsistency in the CPython interpreter shutdown.
+
+- Done a little cleaning-up of code in general.
+
+** Nginx/Elasticsearch security
+
+- Fully tested the Nginx configs with Invenio-master and the test ES cluster.
+  - Made some minor alterations but should be good to go.
+
+- Finished benchmarking: using the Nginx encrypted tunnel results in throughput
+  being reduced from 11.3 MiB/s to 7.41 MiB/s (~35%)
+
+  - Expect the actual max. throughput to be higher on production, however even
+    7.41 MiB/s is far more than we need.  (Currently we index data in bursts of
+    ~250 kiB every 30s)
+
+** Invenio
+
+- Added some code to check user agents contain bot IDs (e.g. "Googlebot",
+  "bingbot") and add a TTL to the event record if necessary.
