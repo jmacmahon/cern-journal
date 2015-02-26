@@ -1,0 +1,18 @@
+* Thu, 26 Feb 2015
+
+- Off work with some flu on Monday & Tuesday
+
+** Authentication for Kibana
+
+- I've been exploring both Apache/Shibboleth and Nginx/OAuth2
+
+- So far both seem really fiddly and complicated -- I will ask for the
+  Shibboleth config we use on CDS.
+
+** Visualisations
+
+- Familiarising myself with the statistics visualisations on master
+
+- Started to work again on my elasticsearch_visualisations branch (fork of pu)
+
+  - Learning ChartJS.
