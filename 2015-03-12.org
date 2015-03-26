@@ -1,0 +1,32 @@
+* Thu, 12 Mar 2015
+
+** CDS
+
+- Deployed and enabled nginx setup with Nikos (finally).
+
+  - All communication to/from the cluster is encrypted and authenticated now.
+
+** Elasticsearch
+
+- Begun collecting data for benchmarking
+
+  - Experienced a setback due to Puppet reinstalling the "correct" Java without
+    me noticing.
+
+  - Moved to the non-puppet-managed cluster and started again.
+
+- Also following the elasticsearch-defender repo on GitHub.
+
+  - Very much not production yet, but still interesting.
+
+** Invenio
+
+- More work on visualisations code
+
+  - Changed format of the statistics config file slightly
+
+  - Working on UI
+
+  - Making front-end more generic
+
+- Renamed local branches and had to do some messy rebasing onto upstream.

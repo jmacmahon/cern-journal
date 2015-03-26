@@ -1,0 +1,27 @@
+* Thu, 26 Mar 2015
+
+** Elasticsearch
+
+- Deployed new node, cds-statistics-11, which will deal with queries and kibana.
+
+  - Turned cds-statistics-02 back into a standard data node.
+
+- Trying to merge cds-olddata-2014 into cds-2014, but there is a bug in my
+  Python script to do this.
+
+  - Fortunately I tagged all the data from cds-olddata-2014 so that when a
+    merge goes wrong we can delete by tag from the new index and start again.
+
+  - Will continue to debug and re-merge.
+
+** Visualisations
+
+- Some minor progress, I restructured the config.json again.
+
+** TWiki
+
+- Started filling in the TWiki page for the ES cluster.
+
+- The idea is that it will act as a knowledge base containing software
+  versions, setup instructions, sample configurations etc., for anybody
+  administering our ES cluster.

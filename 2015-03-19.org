@@ -1,0 +1,22 @@
+* Thu, 19 Mar 2015
+
+** Visualisations
+
+- Switched back to using Flot, since it has a plugin to deal automatically with
+  time-based data series.
+
+- Had some dependency issues with Python, so I had to re-set up my environment a few times.
+
+  - Now created a vagrant snapshot with vanilla Invenio2 installed just to make things easier.
+
+- Started looking at other chart types (pie charts, histograms etc.)
+
+** Elasticsearch benchmarking
+
+- So far unable to find any big difference between the versions of Java tested,
+  which makes me thing I need to get better data.
+
+  - Still thinking about how best to do that.
+
+- We had an incident in which cluster node 7 became unresponsive, but after
+  musing with Nikos, we think it was a hypervisor issue rather than ES.
