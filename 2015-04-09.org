@@ -1,0 +1,13 @@
+* Thu, 09 Apr 2015
+
+- I haven't really done that much due to being on holiday in Berlin last week.
+
+- Catching up on unread email and maintaining git branches
+
+- Some more small progress on visualisations
+
+- I tried to merge the cds-olddata-2014 ES index again, but somehow the bug in
+  the script is still there.
+
+- I've been thinking about the best format to present the ES/Logstash lightning
+  talk with Nikos.
