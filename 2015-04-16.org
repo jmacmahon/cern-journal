@@ -1,0 +1,20 @@
+* Thu, 16 Apr 2015
+
+** Visualisations
+- All graphics done
+
+- Need to create an index page
+
+- Improved layout
+
+** Lightning talk
+- Confirmed slot with Sebastian Lopienski
+
+- Going to be about our implementation of ELK stack, and how we use it to
+  analyse logs.
+
+- Thinking of doing some live before/after scenarios
+
+  - Using grep/sed/awk/wc on apache logs
+
+  - Building a Kibana dashboard from scratch
