@@ -1,0 +1,28 @@
+* Thu, 23 Apr 2015
+
+- Away on Friday, ill on Tuesday
+
+** University
+- Planning 3rd year project with my department
+
+- Various different proposals
+
+  - Have to write them up formally
+
+  - Find a lecturer who's interested
+
+** Lightning talk
+- Heavy planning with Nikos
+
+- Using a telemarketing/infomercial style
+
+- We need to find some people to do 'testimonials' of our ELK stack
+
+** Logstash
+- Yesterday we discovered Logstash had crashed (due to a bug involving max open files)
+
+- Lost data in ES from Tuesday morning to Wednesday afternoon
+
+- Still have the data in the Apache log files, so we can re-import
+
+- In future attach logstash.err to Sentry
