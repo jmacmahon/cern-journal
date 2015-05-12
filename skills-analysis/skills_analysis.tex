@@ -1,8 +1,14 @@
 % !TEX TS-program = xelatex
 % !TEX encoding = UTF-8
 
-\documentclass[a4paper, 12pt]{article} % use larger type; default would be 10pt
+\documentclass[a4paper,11pt]{article} % use larger type; default would be 10pt
 \usepackage{default}
+
+\ifxetex
+\setmainfont{Droid Sans}
+\setmonofont[Scale=0.9]{Droid Sans Mono}
+\linespread{1.3}
+\fi
 
 \usepgfplotslibrary{fillbetween}
 
@@ -22,13 +28,25 @@
 \subsection{Elasticsearch}
 \label{sec:technical.elasticsearch}
 
-\paragraph{Discussion}
+Elasticsearch is a distributed data store and powerful search engine, that we use to store log data from various sources.  It operates as a service running on a cluster of servers communicating with each other, and provides a powerful query language for searching and analyzing data.
 
-\paragraph{Situations}
+Our use-case for Elasticsearch is storing log data from CDS\footnote{The CERN Document Server, \url{https://cds.cern.ch/}}, which is a repository for all the papers, reports, and multimedia produced by CERN or its experiments, and manages the CERN library including book loans and journal subscriptions.  The data we collect comes principally from the software that runs CDS (Invenio\footnote{Copyright CERN, GPL.  \url{http://invenio-software.org/}}), and also from our Apache \texttt{access.log} file.
 
-\paragraph{Examples}
+Some examples of events that we collect:
+\begin{itemize*}
+\item Loan requests
+\item Page views
+\item Media views
+\item Media downloads
+\end{itemize*}
 
-\paragraph{Future}
+I learned how to install, set up and administrate an Elasticsearch cluster using standard Unix tools and an administration interface called Kopf\footnote{Copyright lmenezes, MIT licence.  \url{https://github.com/lmenezes/elasticsearch-kopf}}.  With regards to installation and configuration, the machines we used as nodes run SLC6\footnote{CERN Scientific Linux, \url{http://linux.web.cern.ch/linux/scientific.shtml}}, based on RHEL\footnote{Red Hat Enterprise Linux, \url{http://www.redhat.com/en/technologies/linux-platforms/enterprise-linux}}, which meant that I gained experience in using an RPM-based GNU/Linux system, and in RHEL in particular.  With regards to administration and set-up, I learned how to write complex queries in Elasticsearch's JSON-based query language, and how to manage efficient data storage and indexing within the cluster.
+
+We encountered a problem in that Elasticsearch does not support encrypting the HTTP channel for the REST API it uses to interface with the cluster.  This required some problem-solving, and we decided to implement an Nginx\footnote{A lightweight web server, copyright Nginx Inc., 2-BSD licence.  \url{http://nginx.org/}} front-end on each of the nodes.  Some benchmarking was needed to test the Nginx `layer' and measure the slowdown in throughput with overhead from both Nginx itself and encryption --- for this purpose I used httperf\footnote{Copyright Hewlett-Packard, GPL.  \url{https://github.com/httperf/httperf}}) and ab\footnote{Part of the Apache HTTP Server, copyright The Apache Software Foundation, Apache 2.0 licence.  \url{http://httpd.apache.org/docs/2.4/programs/ab.html}}.  This gave me experience in configuring Nginx, creating SSL keys using OpenSSL, understanding SSL client authentication, and using benchmarking tools effectively.
+
+I also installed and configured two other parts of the typical Elasticsearch stack: Logstash\footnote{Copyright Elasticsearch BV, Apache Licence 2.0.  \url{http://logstash.net}}, a processor and parser for log files, and Kibana\footnote{Copyright Elasticsearch BV, Apache Licence 2.0.  \url{https://www.elastic.co/products/kibana}}, a web-based visualisation system for data stored in Elasticsearch.
+
+In summary, I have gained new skills in RHEL, Elasticsearch, Logstash, Kibana, Kopf, httperf and ab, and deepened my existing skills in Nginx, Unix tools in general, OpenSSL, and GNU/Linux systems administration.
 
 \subsection{Git}
 \label{sec:technical.git}
