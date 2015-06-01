@@ -1,0 +1,19 @@
+* Thu, 28 May 2015
+
+- (Finally) back from 2 weeks' holiday
+
+- Refactoring, rebasing of visualisations for CDSLabs
+
+- Some university work this week
+
+  - Prepare for my tutor visiting next Thursday
+
+  - 2500-word report on skills I've developed here
+
+  - 3000-word report on a project I've worked on
+
+    - Probably going to be Lumberjack
+
+- Went to the talk from Elastic yesterday
+
+  - Some "wishlist" ideas e.g. Kibana 4

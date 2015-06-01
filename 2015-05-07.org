@@ -1,0 +1,26 @@
+* Thu, 07 May 2015
+
+** Visualisations
+
+- Most of my work this week due to sprint.
+
+- Access control
+
+- Index page
+
+- Some UI improvements
+
+- Some minor fixes
+
+  - Finer control of debug log output
+
+  - Template cleanup
+
+** Lightning Talk
+
+- Went really well, video on CDS now
+
+** University
+
+- Got a project proposal accepted: building a DHT tracking system for
+  BitTorrent which includes ratio tracking.
