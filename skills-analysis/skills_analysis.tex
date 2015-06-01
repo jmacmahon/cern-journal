@@ -21,6 +21,7 @@
 
 \section{Introduction}
 \label{sec:intro}
+In my ongoing placement year, I have developed many skills across various topics.  Thanks to Deepak, my Nepalese housemate, I can now cook a really good tarka dahl; I can speak enough French to navigate my way around the Swiss rail network; and I can play Humours of Ballyloughlin on the Uilleann bagpipes.  Aside from those, I have also learned some professional skills, which I suppose is what all this is about.  In this report I'll discuss and analyse my development of three technical skills, and two transferable skills.
 
 \section{Technical Skills}
 \label{sec:technical}
@@ -60,7 +61,9 @@ In future I will use Git effectively and powerfully in more of my personal proje
 \label{sec:technical.software}
 More generally, I have gained experience of working on a software project in a team environment.  Previously I have worked on software either as part of university coursework, as a personal project, or as a small contributor to free and open-source software, which has meant that until now I didn't have to focus so much on areas that affect larger software projects.  In developing on Invenio, and writing my own library, Lumberjack\footnote{Copyright CERN, GPL.  \url{http://github.com/jmacmahon/lumberjack}}, I've applied techniques of test-driven development, good quality documentation and well-structured, modularised architecture.  (Of course, these are all good practices which I try to put in place in my other projects, but developing on Invenio  gave me some deeper insight into their usefulness.)
 
-%TODO: more here
+Since arriving at CERN I'm now able to develop software at a much higher code quality than before, encompassing both robustness and good design.  I can efficiently work as part of a group development environment, and I can now enter a codebase at a certain point, implement the changes I need and deploy them, without having to understand in great detail the entire remainder of the software.
+
+If my life takes me in the path of software development in future, I expect to be able to apply these same approaches consistently to most object-orientated software I encounter.
 
 \section{Transferable Skills}
 \label{sec:transferable}
@@ -69,16 +72,22 @@ More generally, I have gained experience of working on a software project in a t
 \label{sec:transferable.communication}
 Good communication skills are vital to ensure a well-operating team at work.  It's important to be able to effectively put a point across in a meeting environment, or just in an informal discussion with a colleague or supervisor; equally important is to be able to listen and understand other people's concerns and input in the same scenarios.
 
-In my case, this is a particularly valuable skill to have, since all of my colleagues are EFL speakers.  While English (and to a lesser extent, French) is used as a lingua franca at CERN, native speakers are relatively rare.  This gave me a new perspective on the importance of using a clear vocabulary, speaking clearly and slowly (but avoiding being patronising), and good phrasing to get ideas across well.  It also requires good judgement in terms of when it is appropriate to correct others' language --- generally when what they're saying can't be understood, or of course if they specifically ask.
+In my case, this is a particularly valuable skill to have, since all of my colleagues are EFL speakers.  While English (and to a lesser extent, French) is used as a lingua franca at CERN, native speakers are relatively rare.  This gave me a new perspective on the importance of using a clear vocabulary, speaking clearly and slowly (but avoiding being patronising), and good phrasing to get ideas across well.  It also requires good judgement in terms of being able to think about what somebody is trying to say behind the words that they use.
 
-In our team we have weekly progress meetings on Thursdays, in which we are expected to give an overview of the work we have done in the previous week.  It's useful to get an idea of what everybody's job is, what things we're working on as a team outside of my specific project, and occasionally offer (or receive) advice or comments on certain aspects.  Additionally, when our team is using agile methodologies, we have a daily scrum meeting in which we assign tasks (using Jira\footnote{\url{https://www.atlassian.com/software/jira/#!}}) and feed back on completed or in-progress tasks.  Both of these have allowed me to develop good summarisation technique and the ability to liaise effectively with other members of the team.
+In our team we have weekly progress meetings on Thursdays, in which we are expected to give an overview of the work we have done in the previous week.  It's useful to get an idea of what everybody's job is, what things we're working on as a team outside of my specific project, and occasionally offer (or receive) advice or comments on certain aspects.  Additionally, when our team is using agile methodologies, we have a daily scrum meeting in which we assign tasks (using Jira\footnote{\url{https://www.atlassian.com/software/jira/}}) and feed back on completed or in-progress tasks.  Both of these have allowed me to develop a good summarisation technique and the ability to liaise effectively with other members of the team.
 
-\subsection{Organisation}
+Additionally, I recently gave a 10-minute `lightning talk' with my supervisor, describing some of the work I've been doing.  This required fairly intricate planning and good judgement of the audience and how best to present the material stylistically.
+
+After developing my communication skills, I am now a lot more confident in meeting environments and in presenting my own work.  I can give a well-structured and thought-through talk on a particular topic, and I can work productively in agile software development settings such as scrums and sprints.  In future, I will definitely be able to perform better in these settings, and I hope to improve the communication skills I have learned here even further.
+
+\subsection{Problem solving}
 \label{sec:transferable.organisation}
+The ability to think about things in terms of constraints, desires and solutions is applicable to a vast category of issues that can be encountered in a day-to-day professional environment, which makes problem-solving in the abstract a surprisingly generalisable skill to have.
 
-- discuss the skill
-- describe situations
-- what can you do now
-- how might I approach in future?
+In the first part of my time here, it became apparent that there was no standard method of getting log data from a Python program into Elasticsearch, which presented a problem as Invenio is written in Python.  We wanted to use Python's logging library\footnote{PEP 282, \url{https://www.python.org/dev/peps/pep-0282/}} and the most obvious way using standard tools would be to write log data to a file, and then have Logstash index from that file to Elasticsearch.  This solution was clearly inadequate for a project on our scale, so our solution was to write a library which connects the Python logging library to an Elasticsearch data store.  A number of additional problems were encountered and solved along the way, such as maintaining a queue of log entries so as not to slow down page loads, and what Python Elasticsearch library to use as a backend.
+
+Another situation in which I applied problem-solving skills was in a crash of CDS that happened in late January.  The crash was caused by a bug in Lumberjack and happened two hours before the director of IT was to give a talk using material only available on CDS --- as a result, the impact of not finding an appropriate solution would be quite significant.  As time was of the essence, I was able to quickly diagnose the problem and discuss it with my supervisor, and conclude that the bug was unfixable within the time constraints and we decided to roll back to a previous, stable version.  This required a rapid response in a stressful environment and, although the bug was originally my fault, I was able to calmly determine an appropriate solution given the constraints of time and complexity.
+
+In future, I hope to apply my skills in problem solving to other areas of my life, both personal and professional.  I could see a large scope of application in my work in political activism, in particular with the Hunt Saboteurs Association and the Sheffield Student Housing Co-operative, where it is important to get a decision right for all those involved.  Additionally in my third year at university I anticipate having a lot more academic freedom in areas such as my major project, in which I expect to have to apply effective and well-thought-out problem-solving fairly frequently.
 
 \end{document}
