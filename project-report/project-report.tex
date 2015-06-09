@@ -54,6 +54,8 @@ Ultimately the head of the organisation is the CERN council, which is made up
 of delegates from each member state, and the day-to-day top-tier management is
 undertaken by the Director-General, appointed for five years by the council.
 
+% TODO talk about tech students
+
 After a shutdown period of more than a year, CERN has just started the second
 run of its principle particle accelerator, the Large Hadron Collider, colliding
 particles at energies higher than ever previously observed.  This will mean
@@ -62,6 +64,23 @@ years and will continue to set the pace of global particle physics research.
 
 \section{Context}
 \label{sec:context}
+My technical student project at centres on the CERN Document Server, which is a
+service to manage papers, reports, press releases, bulletins and multimedia
+created at CERN.  It also manages the library's loan system and journal
+subscriptions, and provides access to peer-reviewed articles in high-energy
+physics to CERN members.  The software that runs CDS is called Invenio, and
+also powers a family of other sites as well, for example Inspire and Zenodo.
+
+As with many other large services, a system for gathering and visualising usage
+data is important.  In Invenio version 1 this is achieved by logging event data
+to MySQL and then generating graphs serverside viewable by an administrator,
+however this approach doesn't scale well when a service grows to the size of
+CDS.  So, my project is to implement a new system for usage data and analytics
+based on Elasticsearch, which is a distributed data store and search engine.
+
+When Elasticsearch is used for storing event-based data, it can be integrated
+closely with a web front-end called Kibana, which is used to generate
+visualisations.
 
 \section{Proposal}
 \label{sec:proposal}
@@ -77,7 +96,12 @@ years and will continue to set the pace of global particle physics research.
 
 \begin{description*}
   \item[CERN] \url{http://cern.ch}
+  \item[CERN Document Server] \url{http://cds.cern.ch/}
+  \item[Elasticsearch] \url{https://www.elastic.co/products/elasticsearch}
+  \item[Inspire] \url{http://inspirehep.net}
+  \item[Kibana] \url{https://www.elastic.co/products/kibana}
   \item[Lumberjack] \url{https://github.com/jmacmahon/lumberjack}
+  \item[Zenodo] \url{http://zenodo.org}
 \end{description*}
 
 \end{document}
