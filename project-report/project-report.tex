@@ -78,18 +78,49 @@ however this approach doesn't scale well when a service grows to the size of
 CDS.  So, my project is to implement a new system for usage data and analytics
 based on Elasticsearch, which is a distributed data store and search engine.
 
-When Elasticsearch is used for storing event-based data, it can be integrated
-closely with a web front-end called Kibana, which is used to generate
-visualisations.
+The scope of this report concerns the logging aspect, although my overarching
+project also includes implementing visualisations of the logged data.
+
+Since Invenio is written in Python, we decided on using the standard Python
+logging system to collect our event data.  It's easy to use since it avoids
+lots of object-passing; it's a standard and therefore stable and well-tested;
+plus its heirarchical logging system enables us to keep logs going to
+Elasticsearch within their own namespace, to make sure ordinary debug or
+warning logs stayed out of the Elasticsearch ecosystem.
+
+\subsection{Outline of Python Logging}
+\label{sec:pythonlogging}
+A brief outline of the Python logging system.
+
+However, the Python logging system has no in-built compatibility with
+Elasticsearch, and at the time there were no third-party libraries to connect
+the two systems.
 
 \section{Proposal}
 \label{sec:proposal}
+Faced with this issue, we decided it would be a good idea to develop our own
+library to do connect the two systems.  It would provide a handler to attach to
+a logger in the heirarchy, and forward events expressed as Python \texttt{dict}
+objects to Elasticsearch over the REST API.  It should also be tolerant to use
+cases other than our own by accepting standard string-based log messages.
+
+% TODO maybe take this line out?
+As it later turned out, the  it would also need to maintain an internal queue of
+events, and flush the entries to Elasticsearch asynchronously
 
 \section{Implementation}
 \label{sec:implementation}
+- tdd
+- async/queue, benchmarking
+- http libraries
+- threading
+- mock
+- fallback
+- nginx?
 
-\subsection{Setbacks}
-\label{sec:setbacks}
+\subsection{Future Considerations}
+\label{sec:future}
+- rabbitmq
 
 \section{Useful Links}
 \label{sec:references}
@@ -101,6 +132,7 @@ visualisations.
   \item[Inspire] \url{http://inspirehep.net}
   \item[Kibana] \url{https://www.elastic.co/products/kibana}
   \item[Lumberjack] \url{https://github.com/jmacmahon/lumberjack}
+  \item[Python Logging System] PEP 282, \url{https://www.python.org/dev/peps/pep-0282/}
   \item[Zenodo] \url{http://zenodo.org}
 \end{description*}
 
