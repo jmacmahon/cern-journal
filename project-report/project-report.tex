@@ -3,7 +3,8 @@
 
 \documentclass[a4paper,11pt]{article} % use larger type; default would be 10pt
 \usepackage{../skills-analysis/default}
-
+\usepackage{graphicx}
+n
 \ifxetex
 \setmainfont{Droid Sans}
 \setmonofont[Scale=0.9]{Droid Sans Mono}
@@ -92,9 +93,20 @@ warning logs stayed out of the Elasticsearch ecosystem.
 \label{sec:pythonlogging}
 A brief outline of the Python logging system.
 
+\begin{figure}[H]\centering
+  \includegraphics[width=\textwidth]{logging_flow}
+  \caption{The flow of log event information.\protect\footnotemark}
+\label{fig:pythonlogging.flowdiagram}
+\end{figure}
+\footnotetext{Copyright Python Software Foundation; PSFL licence.  Source: \url{https://docs.python.org/2/howto/logging.html}}
+
 However, the Python logging system has no in-built compatibility with
 Elasticsearch, and at the time there were no third-party libraries to connect
 the two systems.
+
+\subsection{How Elasticsearch stores data}
+\label{sec:elasticsearch}
+A brief outline of Elasticsearch indices inc. time-based-ness, maybe mappings
 
 \section{Proposal}
 \label{sec:proposal}
@@ -110,17 +122,125 @@ events, and flush the entries to Elasticsearch asynchronously
 
 \section{Implementation}
 \label{sec:implementation}
+In this section, we will give an overview of how the library works, and then
+move on to an in-depth look at a selection of aspects.
+
+\subsection{Outline of Lumberjack}
+\label{sec:implementation.lumberjack}
+The crux of the library is to provide a \texttt{LogHandler} object which will
+send events that it receives on to Elasticsearch.  This is attached to a
+\texttt{Logger} object on application setup, and then events are passed to this
+\texttt{Logger} in the standard way.  Lumberjack needs to know what
+Elasticsearch index to send data to, so we use a factory pattern to generate
+parametrised \texttt{LogHandler} objects.  We then attach these to the
+\texttt{Logger} at the root of our particular namespace.
+
+In Python pseudo-code:
+\begin{lstlisting}[language=Python,basicstyle=\ttfamily]
+import logging
+import lumberjack
+lj = lumberjack.Lumberjack( ... some global initialisation parameters ... )
+
+myHandler = lj.getHandler(index='my-elasticsearch-index')
+myLogger = logging.getLogger('some_namespace')
+myLogger.addHandler(myHandler)
+\end{lstlisting}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{initialisation_step}
+  \caption{Initial process for attaching a Lumberjack handler to a Python Logger}
+  \label{fig:implementation.initialisation_step}
+\end{figure}
+
+Once initialisation is finished, the main application should then use the
+standard \texttt{Logger} methods, \texttt{.info()}, \texttt{.warn()}, etc., to
+pass an event into Elasticsearch.  The custom log handler adds some metadata
+(timestamp, severity level, logger name), and sends the augmented event data to
+Elasticsearch.  To do this it uses the official Python Elasticsearch interface
+library.
+
+Again in Python pseudo-code:
+
+\begin{lstlisting}[language=Python,basicstyle=\ttfamily]
+import logging
+
+event_A_logger = logging.getLogger('some_namespace.event_A')
+event_B_logger = logging.getLogger('some_namespace.event_B')
+
+event_A_logger.info({'data': 1})
+# Will index {'data': 1, '@timestamp': 1434120117, 'level': 10,
+#             '_type': 'some_namespace.event_A'}
+\end{lstlisting}
+
+\subsection{Indexing}
+\label{sec:implementation.indexing}
+The straightforward approach to getting the data for an event from the
+\texttt{LogHandler} to Elasticsearch would be to simply place, the handler's
+\texttt{.emit()} method, a call to the \texttt{.index()} method of the global
+Elasticsearch singleton.  This would result in the following simplified call
+stack:
+\begin{enumerate*}
+  \item logging.Logger.info()
+  \item lumberjack.Handler.emit()
+  \item elasticsearch.Elasticsearch.index()
+  \item elasticsearch.Transport.perform\_request()
+  \item urllib3.HTTPConnectionPool.urlopen()
+\end{enumerate*}
+
+A problem arises in the fact that the last method on the call stack,
+\texttt{.urlopen()}, will block until a response from the cluster is received.
+After some benchmarking and profiling, we established that under our
+circumstances this blocking could take 300-400 ms, which was unacceptable to
+our situation of performing 3-4 logging operations per single page load.  In
+fact, logging operations should generally disrupt the main application as
+little as possible, so clearly this presented a problem.
+
+In the Elasticsearch Python library, there is a method \texttt{.bulk()} which
+allows bulk-indexing of events to Elasticsearch.  Since this eliminates a lot
+of the overhead, using the bulk indexing results in a much lower per-event
+latency from Elasticsearch.  Thus, one initial solution proposed was to
+maintain a queue of events to be indexed, and on every (say) 500th event added,
+we would flush the queue into Elasticsearch.  This bulk operation would still
+carry a latency of around 400 ms, but it would only occur once every 500 log
+events.
+
+While this solution provided on average a much more efficient solution, it had
+a number of problems: the `every 500' rule would have caused seemingly random
+latency spikes in logging operations, and in slow periods the flushing of the
+queue would have been much less frequent than in periods of high-activity.
+
+So, in the end we decided to implement a completely asynchronous queueing and
+flushing mechanism using the Python threading library.  A new singleton class,
+\texttt{ActionQueue}, was added, which runs in a separate thread.  Events are
+passed to it and added to an internal queue, which is then emptied and flushed
+to Elasticsearch in bulk every 30 seconds or 500 events, whichever is sooner.
+Both of these settings are configurable, and threading locks are used to make
+emptying and adding to the queue atomic operations, thereby eliminating race
+conditions that could cause events to be lost.
+
+% TODO maybe expand on threading
+
+%- async/queue, benchmarking
+%- http libraries
+%- threading
+
+\subsection{Testing}
+\label{sec:implementation.tdd}
+
+
 - tdd
-- async/queue, benchmarking
-- http libraries
-- threading
 - mock
+
+- schemas?
 - fallback
 - nginx?
+- documentation
 
 \subsection{Future Considerations}
 \label{sec:future}
 - rabbitmq
+- py.test
 
 \section{Useful Links}
 \label{sec:references}
@@ -129,10 +249,12 @@ events, and flush the entries to Elasticsearch asynchronously
   \item[CERN] \url{http://cern.ch}
   \item[CERN Document Server] \url{http://cds.cern.ch/}
   \item[Elasticsearch] \url{https://www.elastic.co/products/elasticsearch}
+  \item[Elasticsearch Python] \url{https://github.com/elastic/elasticsearch-py}
   \item[Inspire] \url{http://inspirehep.net}
   \item[Kibana] \url{https://www.elastic.co/products/kibana}
   \item[Lumberjack] \url{https://github.com/jmacmahon/lumberjack}
   \item[Python Logging System] PEP 282, \url{https://www.python.org/dev/peps/pep-0282/}
+  \item[Python Threading Library] \url{https://docs.python.org/2/library/threading.html}
   \item[Zenodo] \url{http://zenodo.org}
 \end{description*}
 
