@@ -16,6 +16,7 @@
 \usepackage{fontspec}
 \setmonofont[Scale=0.8]{Droid Sans Mono}
 \fi
+\usepackage{microtype}
 
 % Disable intented paragraphs and add space between them instead.
 \setlength{\parskip}{10pt}
@@ -47,6 +48,7 @@
 
 % Code stuff.
 \usepackage{listings}
+\newcommand{\snip}[1]{\mbox{\texttt{#1}}}
 
 % Define some settins for Haskell code listings.
 \lstdefinestyle{haskell}{
